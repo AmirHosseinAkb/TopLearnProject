@@ -1,0 +1,22 @@
+﻿@page "{userId}"
+@model TopLearn.Pages.Admin.Users.DeleteUserModel
+@{
+}
+
+<div class="alert alert-warning">
+    <h1>آیا مطمئنید که می خواهید کاربر @Model.Information.UserName را حذف کنید؟</h1>
+    <br />
+    <ul>
+        <li>ایمیل: @Model.Information.Email</li>
+        <li>تاریخ عضویت: @Model.Information.RegiaterDate.ToShamsi()</li>
+        <li>موجودی کیف پول : @Model.Information.Wallet</li>
+    </ul>
+    <hr />
+    <form method="post">
+        <input type="hidden" asp-for="Information.UserName" />
+        <p>
+            <input type="submit" class="btn btn-danger" value="حذف" />
+            <a class="btn btn-success" href="/Admin/Users">انصراف</a>
+        </p>
+    </form>
+</div>

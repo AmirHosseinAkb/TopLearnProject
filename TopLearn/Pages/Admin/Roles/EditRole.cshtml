@@ -1,0 +1,81 @@
+﻿@page "{roleId}"
+@model TopLearn.Pages.Admin.Roles.EditRoleModel
+@{
+    List<Permission> permissions = ViewData["Permissions"] as List<Permission>;
+    List<int> rolePermissions = ViewData["RolePermissions"] as List<int>;
+}
+
+<div class="row">
+    <form role="form" method="post">
+        <div class="col-lg-8">
+            <div style="margin:10px 0px">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        ویرایش نقش
+                    </div>
+                    <div class="panel-body">
+                        <input type="hidden" asp-for="Role.RoleId" />
+                        <div class="form-group">
+                            <input type="text" class="form-control" asp-for="Role.RoleTilte" placeholder="عنوان نقش">
+                        </div>
+                        <button type="submit" class="btn btn-success">افزودن نقش</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4" style="margin:10px 0px">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    دسترسی های نقش
+                </div>
+                <div class="panel-body">
+                    @if (permissions.Any(p => p.ParentId == null))
+                    {
+                        <ul style="list-style-type:none">
+                            @foreach (var item in permissions.Where(p => p.ParentId == null))
+                            {
+                                <li>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="@item.PermissionId" @((rolePermissions.Any(rp=>rp==item.PermissionId))?"checked":"") name="SelectedPermissions"> @item.PermissionTitle
+                                        </label>
+                                    </div>
+                                    @if (permissions.Any(p => p.ParentId == item.PermissionId))
+                                    {
+                                        <ul style="list-style-type:none">
+                                            @foreach (var sub in permissions.Where(p => p.ParentId == item.PermissionId))
+                                            {
+                                                <li>
+                                                    <label>
+                                                        <input type="checkbox" value="@sub.PermissionId" @((rolePermissions.Any(rp=>rp==sub.PermissionId))?"checked":"") name="SelectedPermissions"> @sub.PermissionTitle
+                                                    </label>
+                                                    @if (permissions.Any(p => p.ParentId == sub.PermissionId))
+                                                    {
+                                                        <ul style="list-style-type:none">
+                                                            @foreach (var sub2 in permissions.Where(p => p.ParentId == sub.PermissionId))
+                                                            {
+                                                                <li>
+                                                                    <label>
+                                                                        <input type="checkbox" value="@sub2.PermissionId" @((rolePermissions.Any(rp=>rp==sub2.PermissionId))?"checked":"") name="SelectedPermissions"> @sub2.PermissionTitle
+                                                                    </label>
+                                                                </li>
+
+                                                            }
+                                                        </ul>
+                                                    }
+                                                </li>
+                                            }
+                                        </ul>
+                                    }
+                                </li>
+
+                            }
+                        </ul>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,73 @@
+﻿@page "{courseId}"
+@model TopLearn.Pages.Admin.Courses.EpisodeIndexModel
+@{
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">لیست اپیزود های دوره</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                لیست اپیزود های دوره
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="table-responsive">
+                        <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline" role="grid">
+                            <table class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables-example" aria-describedby="dataTables-example_info">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <td>عنوان اپیزود</td>
+                                        <th>تایم اپیزود</th>
+                                        <th>رایگان</th>
+                                        <th>دستورات</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach (var item in Model.CourseEpisodes)
+                                    {
+                                        <tr>
+                                            <td>@item.EpisodeTitle</td>
+                                            <td>@item.EpisodeTime</td>
+                                            <td>
+                                                @if (item.IsFree)
+                                                {
+                                                    <p class="text-success">
+                                                        <span class="glyphicon glyphicon-ok"></span>
+                                                    </p>
+                                                }
+                                                else
+                                                {
+                                                    <p class="text-danger">
+                                                        <span class="glyphicon glyphicon-remove"></span>
+                                                    </p>
+                                                }
+                                            </td>
+                                            <td>
+                                                <a href="/Admin/Courses/EditEpisode/@item.EpisodeId" class="btn btn-warning btn-sm">ویرایش اپیزود</a>
+
+                                                <a href="/Admin/Courses/DeleteEpisode/@item.EpisodeId" class="btn btn-danger btn-sm">حذف اپیزود</a>
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                            <div class="row">
+                                <div style="margin:0px 20px">
+                                    <a class="btn btn-outline btn-success" asp-page="CreateEpisode" asp-route-courseId="@ViewData["CourseId"]">افزودن اپیزود جدید</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

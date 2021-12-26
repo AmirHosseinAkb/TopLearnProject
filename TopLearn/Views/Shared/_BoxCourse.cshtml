@@ -1,0 +1,10 @@
+﻿@model ShowCoursesListItem
+
+<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 term-col">
+    <article>
+        <a href="/ShowCourse/@Model.CourseId" class="img-layer"><img src="~/Course/Thumbnail/@Model.CourseImageName" style="max-height:150px" ></a>
+        <h2><a href="/ShowCourse/@Model.CourseId"> @Model.CourseTitle </a></h2>
+        <span>@((Model.CoursePrice==0)?"رایگان":Model.CoursePrice.ToString("#,0")+ "تومان") </span>
+        <i>@Model.TimeCount</i>
+    </article>
+</div>

@@ -1,0 +1,71 @@
+﻿@model EditUserProfileViewModel
+@{
+    ViewData["Title"] = "EditUser";
+}
+
+<main>
+    <div class="container">
+        <div class="user-account">
+            <form asp-action="EditUserProfile" method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-md-3 col-sm-4 col-xs-12">
+                        <partial name="_SideBar" />
+                    </div>
+                    <div class="col-md-6">
+                        <section class="user-account-content">
+                            <header><h1> ویرایش پروفایل </h1></header>
+                            <div class="inner">
+                                <input type="hidden" asp-for="AvatarName" />
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="email-address"><i class="zmdi zmdi-email"></i></span>
+                                    <input asp-for="UserName" type="text" class="form-control" placeholder="ایمیل" aria-describedby="email-address">
+                                </div>
+                                <span asp-validation-for="UserName" class="text-danger"></span>
+
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="email-address"><i class="zmdi zmdi-email"></i></span>
+                                    <input asp-for="Email" type="text" class="form-control" placeholder="ایمیل" aria-describedby="email-address">
+                                </div>
+                                <span asp-validation-for="Email" class="text-danger"></span>
+
+                                <div>
+                                    <input type="submit" class="btn btn-success" value="ویرایش پروفایل" />
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="col-md-3">
+                        <section class="user-account-content">
+                            <header><h1> پروفایل کاربر </h1></header>
+                            <div class="inner">
+                                <img id="imgAvatar" src="~/UserAvatar/@Model.AvatarName" class="img-thumbnail" />
+                                <hr />
+                                <input id="imgInp" type="file" asp-for="UserAvatar" style="width:220px" />
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+@section Scripts
+{
+    <script>
+        function readURL(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#imgAvatar').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $("#imgInp").change(function () {
+            readURL(this);
+        });
+    </script>
+}

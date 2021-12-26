@@ -1,0 +1,11 @@
+﻿@model User
+@{
+    ViewData["Title"] = "_SuccessRegister";
+}
+
+<div class="alert alert-success">
+    <h1>@Model.UserName عزیز!</h1>
+    <p>حساب کاربری شما با موفقیت ایجاد شد ایمیلی حاوی لینک فعالسازی به ایمیل @Model.Email فرستاده شد<br /> برای فعالسازی حساب کاربری خود وارد ایمیلتان شده و وری لینک فعالسازی حساب کاربری کلیک نمایید</p>
+    <a href="/Login" class="btn btn-warning">ورود به سایت</a>
+</div>
+

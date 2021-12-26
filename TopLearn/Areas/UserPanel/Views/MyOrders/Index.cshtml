@@ -1,0 +1,60 @@
+﻿@model List<Order>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<main>
+    <div class="container">
+        <div class="user-account">
+
+            <div class="row">
+                <div class="col-md-3 col-sm-4 col-xs-12">
+                    <partial name="_SideBar" />
+                </div>
+                <div class="col-md-9">
+                    <section class="user-account-content">
+                        <header><h1> لیست فاکتور های شما </h1></header>
+                        <div class="inner">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>شماره فاکتور</th>
+                                        <th>تاریخ</th>
+                                        <th>وضعیت</th>
+                                        <th>جمع کل</th>
+                                        <th>نمایش فاکتور</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@item.OrderId</td>
+                                            <td>@item.CreateDate.ToShamsi()</td>
+                                            <td>
+                                                @if (item.IsFinally)
+                                                {
+                                                    <p class="text-success">پرداخت شده</p>
+                                                }
+                                                else
+                                                {
+                                                    <p class="text-danger">پرداخت نشده</p>
+                                                }
+                                            </td>
+                                            <td>@item.OrderSum</td>
+                                            <td>
+                                                <a class="btn btn-warning btn-block" href="/ShowOrder/@item.OrderId">نمایش</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <hr />
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+

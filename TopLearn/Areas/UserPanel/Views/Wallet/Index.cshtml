@@ -1,0 +1,86 @@
+﻿@model ChargeWalletViewModel
+@{
+    ViewData["Title"] = "کیف پول شما";
+    List<GetWalletsForShowViewModel> wallets = ViewData["UserWallets"] as List<GetWalletsForShowViewModel>;
+}
+
+<main>
+    <div class="container">
+        <div class="user-account">
+            <form asp-action="ChargeWallet" method="post">
+                <div class="row">
+                    <div class="col-md-3 col-sm-4 col-xs-12">
+                        <partial name="_SideBar" />
+                    </div>
+                    <div class="col-md-9">
+                        <section class="user-account-content">
+                            <header><h1> کیف پول شما </h1></header>
+                            <div class="inner">
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="email-address"><i class="zmdi zmdi-money"></i></span>
+                                    <input asp-for="Amount" type="number" class="form-control" placeholder="مبلغ به تومان" aria-describedby="email-address">
+                                </div>
+                                <span asp-validation-for="Amount" class="text-danger"></span>
+                                <div>
+                                    <input type="submit" class="btn btn-success" value="تایید و پرداخت" />
+                                </div>
+                            </div>
+                            <hr />
+                            <header><h1> تراکنش های کیف پول شما </h1></header>
+                            <div class="inner">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>مبلغ تراکنش</th>
+                                            <th>نوع تراکنش</th>
+                                            <th>شرح تراکنش</th>
+                                            <th>تراکنش موفق</th>
+                                            <th>تاریخ تراکنش</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in wallets)
+                                        {
+                                            <tr>
+                                                <td>@item.Amount</td>
+                                                <td>
+                                                    @if (item.TypeId == 1)
+                                                    {
+                                                        <p class="text-success">واریز</p>
+                                                    }
+                                                    else
+                                                    {
+                                                        <p class="text-danger">برداشت</p>
+                                                    }
+                                                </td>
+                                                <td>
+                                                    @{
+                                                        string tagHref= "<a href='/ShowOrder/" + item.Description.Replace("پرداخت فاکتور شماره#", "") + "' >#</a>";
+                                                     }
+                                                @Html.Raw(item.Description.Replace("#",tagHref))
+                                                </td>
+                                                <td>
+                                                    @if (item.IsPayed)
+                                                    {
+                                                        <p class="btn btn-success">موفق</p>
+                                                    }
+                                                    else
+                                                    {
+                                                        <p class="btn btn-danger">ناموفق</p>
+                                                    }
+                                                </td>
+                                                <td>@item.CreateDate.ToShamsi()</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </section>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+

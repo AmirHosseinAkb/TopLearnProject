@@ -1,0 +1,80 @@
+﻿@page "{userId}"
+@model TopLearn.Pages.Admin.Users.EditUserModel
+@{
+    List<Role> roles = ViewData["Roles"] as List<Role>;
+    List<int> userRoles = ViewData["UserRoles"] as List<int>;
+}
+
+<div class="row">
+    <form role="form" method="post" enctype="multipart/form-data">
+        <div class="col-lg-8">
+            <div style="margin:10px 0px">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        افزودن کاربر جدید
+                    </div>
+                    <div class="panel-body">
+                        <input type="hidden" asp-for="EditUserFromAdminViewModel.UserId" />
+                        <input type="hidden" asp-for="EditUserFromAdminViewModel.AvatarName" />
+                        <div class="form-group">
+                            <input type="text" class="form-control" asp-for="EditUserFromAdminViewModel.UserName" readonly placeholder="نام کاربری">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" asp-for="EditUserFromAdminViewModel.Email" placeholder="ایمیل">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" asp-for="EditUserFromAdminViewModel.Password" placeholder="رمز عبور">
+                            <p class="help-block">درصورت وارد کردن رمز عبور ، رمز عبور کاربر تغییر خواهد کرد</p>
+                        </div>
+                        <hr />
+                        <div class="form-group">
+                            <label>نقش های کاربر</label>
+                            @foreach (var role in roles)
+                            {
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" @((userRoles.Any(ur=>ur==role.RoleId))?"checked":"") value="@role.RoleId" name="SelectedRoles">@role.RoleTilte
+                                    </label>
+                                </div>
+                            }
+                        </div>
+                        <button type="submit" class="btn btn-success">ویرایش کاربر</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4" style="margin:10px 0px">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    تصویر پروفایل کاربر
+                </div>
+                <div class="panel-body">
+                    <img id="imgAvatar" class="img-thumbnail" src="~/UserAvatar/@Model.EditUserFromAdminViewModel.AvatarName" />
+                    <hr />
+                    <input id="imgInp" type="file" class="form-control" asp-for="EditUserFromAdminViewModel.UserAvatar" />
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+@section Scripts
+{
+    <script>
+        function readURL(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#imgAvatar').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $("#imgInp").change(function () {
+            readURL(this);
+        });
+    </script>
+}

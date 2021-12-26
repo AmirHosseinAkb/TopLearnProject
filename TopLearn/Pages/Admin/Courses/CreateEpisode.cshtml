@@ -1,0 +1,49 @@
+﻿@page
+@model TopLearn.Pages.Admin.Courses.CreateEpisodeModel
+@{
+}
+
+<h1>افزودن اپیزود جدید</h1>
+<hr />
+<div class="row">
+    <form method="post" enctype="multipart/form-data">
+        <div class="col-md-8">
+            <input type="hidden" asp-for="CourseEpisode.CourseId" />
+            <div class="form-group">
+                <label>عنوان اپیزود</label>
+                <input type="text" asp-for="CourseEpisode.EpisodeTitle" class="form-control">
+                <span asp-validation-for="CourseEpisode.EpisodeTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>مدت زمان اپیزود</label>
+                <input type="text" asp-for="CourseEpisode.EpisodeTime" class="form-control">
+                <span asp-validation-for="CourseEpisode.EpisodeTime" class="text-danger"></span>
+               
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="CourseEpisode.IsFree" type="checkbox">رایگان
+                    </label>
+                </div>
+                <span asp-validation-for="CourseEpisode.IsFree" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>فایل اپیزود</label>
+                <input type="file" name="episodeFile">
+                <hr />
+                @if (ViewData["NullEpisode"] != null)
+                {
+                    <p class="text-danger">فایل اپیزود را انتخاب کنید</p>
+                }
+                @if (ViewData["ExistEpisode"] != null)
+                {
+                    <p class="text-danger">این فایل از قبل وجود دارد</p>
+                }
+            </div>
+            <div>
+                <input type="submit" value="ثبت دوره" class="btn btn-success" />
+            </div>
+        </div>
+    </form>
+</div>

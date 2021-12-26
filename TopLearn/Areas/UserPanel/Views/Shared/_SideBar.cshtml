@@ -1,0 +1,32 @@
+﻿@inject IUserService _userService;
+@{ 
+    var information = _userService.GetUserSideBarInformations(User.Identity.Name);
+}
+
+<aside>
+
+    <div class="avatar-layer">
+        <div class="img-layer">
+            <a href="" class="change-image"><i class="zmdi zmdi-edit"></i></a>
+            <img src="~/UserAvatar/@information.AvatarName">
+        </div>
+        <div class="detail">
+            <span> @information.UserName </span>
+            <span> عضویت : @information.RegisterDate.ToShamsi() </span>
+        </div>
+    </div>
+
+    <section>
+        <header><h3> میز کار </h3></header>
+        <div class="inner">
+            <ul>
+                <li><a href="/UserPanel"> مشاهده حساب کابری </a></li>
+                <li><a href="/UserPanel/EditUserProfile"> ویرایش حساب کابری </a></li>
+                <li><a href="/UserPanel/ChangeUserPassword"> تغییر رمز عبور </a></li>
+                <li><a href="/UserPanel/Wallet"> کیف پول شما </a></li>
+                <li><a href="/UserPanel/MyOrders"> فاکتور های شما </a></li>
+                <li><a href="/Logout"> خروج از حساب کاربری </a></li>
+            </ul>
+        </div>
+    </section>
+</aside>
