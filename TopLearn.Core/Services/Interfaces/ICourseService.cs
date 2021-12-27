@@ -35,6 +35,8 @@ namespace TopLearn.Core.Services.Interfaces
         Tuple<List<ShowCoursesListItem>, int> GetCourse(int pageId = 1, string filter = "", string getType = "all", string orderByType = "date", int startPrice = 0, int endPrice = 0, List<int> selectedGroups = null, int take = 0);
         Course GetCourseForShow(int courseId);
         List<ShowCoursesListItem> GetPopularCourses();
+        void AddGroup(CourseGroup group);
+        void UpdateGroup(CourseGroup group);
         #endregion
 
         #region Comment

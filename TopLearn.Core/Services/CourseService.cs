@@ -95,6 +95,12 @@ namespace TopLearn.Core.Services
             _context.SaveChanges();
         }
 
+        public void AddGroup(CourseGroup group)
+        {
+            _context.CourseGroups.Add(group);
+            _context.SaveChanges();
+        }
+
         public void DeleteEpisode(CourseEpisode episode)
         {
             episode.IsDeleted = true;
@@ -234,7 +240,7 @@ namespace TopLearn.Core.Services
 
         public List<CourseGroup> GetAllGroups()
         {
-            return _context.CourseGroups.ToList();
+            return _context.CourseGroups.Include(g=>g.CourseGroups).ToList();
         }
 
         public Tuple<List<ShowCoursesListItem>, int> GetCourse(int pageId = 1, string filter = "", string getType = "all", string orderByType = "date", int startPrice = 0, int endPrice = 0, List<int> selectedGroups = null, int take = 0)
@@ -425,6 +431,12 @@ namespace TopLearn.Core.Services
         public bool IsExistEpisode(string episodeName)
         {
             return _context.CourseEpisodes.Any(e => e.EpisodeFileName == episodeName);
+        }
+
+        public void UpdateGroup(CourseGroup group)
+        {
+            _context.CourseGroups.Update(group);
+            _context.SaveChanges();
         }
     }
 }
