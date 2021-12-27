@@ -1,4 +1,26 @@
-﻿@page
+﻿@page "{id?}"
 @model TopLearn.Pages.Admin.CourseGroups.CreateGroupModel
 @{
 }
+
+
+<div class="row">
+    <form role="form" method="post">
+        <div class="col-lg-12">
+            <div style="margin:10px 0px">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        افزودن گروه جدید
+                    </div>
+                    <input type="hidden" asp-for="CourseGroup.ParentId" />
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <input type="text" class="form-control" asp-for="CourseGroup.GroupTitle" placeholder="عنوان گروه">
+                        </div>
+                        <button type="submit" class="btn btn-success">افزودن گروه</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
