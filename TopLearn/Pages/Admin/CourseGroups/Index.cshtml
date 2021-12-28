@@ -32,7 +32,7 @@
                                             <ul>
                                                 @foreach (var sub in item.CourseGroups)
                                                 {
-                                                    <li>@sub.GroupTitle</li>
+                                                    <li>@sub.GroupTitle  <a class="btn btn-outline btn-warning btn-xs" href="/Admin/CourseGroups/EditGroup/@sub.GroupId">ویرایش</a></li>
                                                 }
                                             </ul>
                                         }

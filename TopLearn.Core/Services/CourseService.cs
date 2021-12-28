@@ -370,6 +370,11 @@ namespace TopLearn.Core.Services
             return _context.CourseEpisodes.Where(e => e.CourseId == courseId).ToList();
         }
 
+        public CourseGroup GetGroupById(int groupId)
+        {
+            return _context.CourseGroups.SingleOrDefault(g => g.GroupId == groupId);
+        }
+
         public List<SelectListItem> GetLevels()
         {
             return _context.CourseLevels

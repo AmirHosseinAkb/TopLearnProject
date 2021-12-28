@@ -37,6 +37,7 @@ namespace TopLearn.Core.Services.Interfaces
         List<ShowCoursesListItem> GetPopularCourses();
         void AddGroup(CourseGroup group);
         void UpdateGroup(CourseGroup group);
+        CourseGroup GetGroupById(int groupId);
         #endregion
 
         #region Comment
